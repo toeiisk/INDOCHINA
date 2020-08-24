@@ -34,7 +34,69 @@ public class Main {
             switch (Input) {
                 case "N":
                     // code block
-                    System.out.println("New Order");
+                    System.out.println("========New Order======\n Inout Customer name : ");
+                    String customerName = myObj.nextLine();
+                    Order newOrder = new Order(customerName);
+                    System.out.println("Order no. "+newOrder.getId()+ " was created, next select pizza, finish press 'pay'");
+                    String type = "";
+                    while(type.equals("pay")){
+                        System.out.println("Chicken Delux (press C) MighyMeat {press M} : ");
+                        type = myObj.nextLine();
+                        switch(type){
+                            case "M":
+                                MightyMeat m = new MightyMeat();
+                                System.out.println("select Size : S M L XL");
+                                type = myObj.nextLine();
+                                m.setPzSize(type);
+                                System.out.println("select Toping : H(Ham) S(Sausage) HS(both) N(No topping)");
+                                type = myObj.nextLine();
+                                if(type.contains("HS")){
+                                   m.setIsHam(true);
+                                   m.setIsSausage(true);
+                                }
+                                else if(type.indexOf('H') != -1){
+                                   m.setIsHam(true);
+                                }else if(type.indexOf('S') != -1){
+                                    m.setIsSausage(true);
+                                }
+                                
+                                
+                                break;
+                            case "C":
+                                ChickenDeluxe c = new ChickenDeluxe();
+                                System.out.println("select Size : S M L XL");
+                                type = myObj.nextLine();
+                                c.setPzSize(type);
+                                System.out.println("select Toping : R(RoastChicken) BQ(BBQChicken) B(both) N(No topping)");
+                                type = myObj.nextLine();
+                                switch(type){
+                                    case "R":
+                                        break;
+                                    case "BQ":
+                                        break;
+                                    case "B":
+                                        break;
+                                    case "N":
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                
+                                break;
+                                
+                            default:
+                                break;
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
                     break;
                 case "C":
                     // code block

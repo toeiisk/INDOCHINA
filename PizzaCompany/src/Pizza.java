@@ -14,19 +14,22 @@
 //pzStatus = "BAKED", "UNBAKED"
 public abstract class Pizza {
 
-    private String pzType, pzSize, pzStatus, pzName;
+    private String pzType, pzSize, pzStatus;
     private double price;
-    
-    public Pizza(Pizza target, double price, String pzName) {
-        this.pzName = pzName;
+
+    public Pizza(Pizza target) {
         this.pzType = target.pzType;
         this.pzSize = target.pzSize;
         this.pzStatus = "UNBAKE";
-        this.price = price;
+        this.price = target.price;
     }
+    
 
-    public String getPzName() {
-        return pzName;
+    public Pizza(){
+        this.pzType = "Pizza";
+        this.pzSize = "";
+        this.pzStatus = "UNBAKE";
+        this.price = 0.0f;
     }
 
     /**
@@ -65,6 +68,7 @@ public abstract class Pizza {
         this.pzSize = pzSize;
     }
     
+    @Override
     public abstract Pizza clone();
 
     /**

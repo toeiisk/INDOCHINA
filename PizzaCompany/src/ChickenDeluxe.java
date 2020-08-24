@@ -9,15 +9,27 @@
  * @author LAB304_28
  */
 public class ChickenDeluxe extends Pizza {
-    private String roastedChickenAmount, bbqChickenAmount;
-    public ChickenDeluxe(ChickenDeluxe target, double price) {
-        super(target, price, "ChickenDeluxe");
-        this.roastedChickenAmount = target.roastedChickenAmount;
-        this.bbqChickenAmount = target.bbqChickenAmount;
+    private boolean isRoastedChicken, isBbqChickenAmount;
+
+    public ChickenDeluxe(boolean isRoastedChicken, boolean isBbqChickenAmount) {
+        this.isRoastedChicken = isRoastedChicken;
+        this.isBbqChickenAmount = isBbqChickenAmount;
+    }
+
+    public ChickenDeluxe() {
+        this(false, false);
+    }
+    
+  
+    
+    public ChickenDeluxe(ChickenDeluxe target) {
+        super(target);
+        this.isBbqChickenAmount = target.isBbqChickenAmount;
+        this.isBbqChickenAmount = target.isBbqChickenAmount;
     }
     
     @Override
     public Pizza clone() {
-        return new ChickenDeluxe(this, this.getPzPrice());
+        return new ChickenDeluxe(this);
     }
 }

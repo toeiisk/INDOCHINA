@@ -9,15 +9,22 @@
  * @author LAB304_28
  */
 public class MightyMeat extends Pizza {
-    private String hamAmount, suasageAmount;
-    public MightyMeat(MightyMeat target, double price) {
-        super(target, price, "MightyMeat");
-        this.hamAmount = target.hamAmount;
-        this.suasageAmount = target.suasageAmount;
+    private boolean isHam, isSausage;
+    
+    public MightyMeat(){
+        this.isHam = false;
+        this.isSausage = false;
+        super.setPzType("MightyMeat");
+    }
+    
+    public MightyMeat(MightyMeat target) {
+        super(target);
+        this.isHam = target.isHam;
+        this.isSausage = target.isSausage;
     }
     
     @Override
     public Pizza clone() {
-        return new MightyMeat(this, this.getPzPrice());
+        return new MightyMeat(this);
     }
 }
