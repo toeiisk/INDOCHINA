@@ -14,12 +14,19 @@
 //pzStatus = "BAKED", "UNBAKED"
 public abstract class Pizza {
 
-    private String pzType, pzSize, pzStatus;
+    private String pzType, pzSize, pzStatus, pzName;
+    private double price;
     
-    public Pizza(Pizza target) {
+    public Pizza(Pizza target, double price, String pzName) {
+        this.pzName = pzName;
         this.pzType = target.pzType;
         this.pzSize = target.pzSize;
         this.pzStatus = "UNBAKE";
+        this.price = price;
+    }
+
+    public String getPzName() {
+        return pzName;
     }
 
     /**
@@ -27,6 +34,14 @@ public abstract class Pizza {
      */
     public String getPzType() {
         return pzType;
+    }
+
+    public double getPzPrice() {
+        return price;
+    }
+
+    public void setPzPrice(double price) {
+        this.price = price;
     }
 
     /**

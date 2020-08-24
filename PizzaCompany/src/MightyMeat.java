@@ -10,14 +10,14 @@
  */
 public class MightyMeat extends Pizza {
     private String hamAmount, suasageAmount;
-    public MightyMeat(MightyMeat target) {
-        super(target);
+    public MightyMeat(MightyMeat target, double price) {
+        super(target, price, "MightyMeat");
         this.hamAmount = target.hamAmount;
         this.suasageAmount = target.suasageAmount;
     }
     
     @Override
     public Pizza clone() {
-        return new MightyMeat(this);
+        return new MightyMeat(this, this.getPzPrice());
     }
 }

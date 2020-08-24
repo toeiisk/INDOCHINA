@@ -12,7 +12,7 @@
 //ovenStatus = "AVAILABLE", "BAKING", "BAKED"
 public class PizzaOven {
     private String ovenStatus;
-    private int timeRemaining;
+    private long timeRemaining;
     private Pizza pizzaInOven;
     
     public PizzaOven() {
@@ -37,7 +37,7 @@ public class PizzaOven {
     /**
      * @return the timeRemaining
      */
-    public int getTimeRemaining() {
+    public long getTimeRemaining() {
         return timeRemaining;
     }
 
@@ -52,6 +52,14 @@ public class PizzaOven {
         this.pizzaInOven = pizza;
         this.timeRemaining = bakeTime;
         this.ovenStatus = "BAKING";
+    }
+
+    public Pizza getPizzaInOven() {
+        return pizzaInOven;
+    }
+
+    public void setPizzaInOven(Pizza pizzaInOven) {
+        this.pizzaInOven = pizzaInOven;
     }
     
     public void Baking() {
@@ -74,5 +82,4 @@ public class PizzaOven {
                     "STATUS : "+ this.pizzaInOven.getPzStatus());
         }
     }
-    
 }

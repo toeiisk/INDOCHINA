@@ -10,14 +10,14 @@
  */
 public class ChickenDeluxe extends Pizza {
     private String roastedChickenAmount, bbqChickenAmount;
-    public ChickenDeluxe(ChickenDeluxe target) {
-        super(target);
+    public ChickenDeluxe(ChickenDeluxe target, double price) {
+        super(target, price, "ChickenDeluxe");
         this.roastedChickenAmount = target.roastedChickenAmount;
         this.bbqChickenAmount = target.bbqChickenAmount;
     }
     
     @Override
     public Pizza clone() {
-        return new ChickenDeluxe(this);
+        return new ChickenDeluxe(this, this.getPzPrice());
     }
 }

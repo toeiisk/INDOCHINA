@@ -1,19 +1,24 @@
 
-
+import java.util.Scanner;  // Import the Scanner class
 public class Cashier {
 
         // static variable single_instance of type Singleton 
     private static Cashier single_instance = null;
 
     // variable of type String 
-    public String employee;
-    public double cash;
+    private String employee;
+    private double cash;
     
 
-    // private constructor restricted to this class itself 
-    private Cashier() {
-        employee = "Pound";
-        cash = 0.0;
+    // private constructor restricted to this class itself
+    
+    Cashier(){
+        this.employee = "";
+        this.cash = 0.0f;
+    }
+    Cashier(String name, double cash) {
+        this.employee = name;
+        this.cash = cash;
     }
 
     // static method to create instance of Singleton class 
@@ -24,11 +29,27 @@ public class Cashier {
         }
         return single_instance;
     }
+
+    public String getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(String employee) {
+        this.employee = employee;
+    }
+
+    public double getCash() {
+        return cash;
+    }
+
+    public void setCash(double cash) {
+        this.cash = cash;
+    }
     
     public boolean getOrder(String OrderId) {
         return true;
     }
-    public void payBill(String OrderId, double cash){
+    public void payBill(double cash){
         this.cash += cash;  
     }
 
