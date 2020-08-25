@@ -19,6 +19,10 @@ public class ChickenDeluxe extends Pizza {
     public ChickenDeluxe() {
         this(false, false);
     }
+    
+    public void addName(String name){
+        this.setPzType(this.getPzType()+' '+name);
+    }
 
     public boolean isIsRoastedChicken() {
         return isRoastedChicken;

@@ -36,70 +36,79 @@ public class Main {
                     System.out.println("========New Order======\n Inout Customer name : ");
                     String customerName = myObj.nextLine();
                     Order newOrder = new Order(customerName);
-                    System.out.println("Order no. "+newOrder.getId()+ " was created, next select pizza, finish press 'pay'");
+                    System.out.println("Order no. " + newOrder.getId() + " was created, next select pizza, finish press 'pay'");
                     String type = "";
                     double price = 0.0f;
-                    while(!type.equals("pay")){
-                        System.out.println("Chicken Delux (press C) MighyMeat {press M} : ");
+                    while (!type.equals("pay")) {
+                        System.out.println("Chicken Delux (press C) MighyMeat {press M} ==> 'pay' => to check bill ");
                         type = myObj.nextLine();
-                        switch(type){
+                        switch (type) {
                             case "M":
                                 MightyMeat m = new MightyMeat();
+                                m.addName("MightyMeat");
                                 System.out.println("select Size : S M L XL");
                                 type = myObj.nextLine();
+                                m.addName(type);
+                                
                                 m.setPzSize(type);
-                                System.out.println("select Toping : H(Ham) S(Sausage) HS(both) N(No topping)");
+                                System.out.println("select Toping : H(Ham) S(Sausage) HS(both) N(No topping), finish press 'pay'");
                                 type = myObj.nextLine();
-                                if(type.contains("HS")){
-                                   m.setIsHam(true);
-                                   m.setIsSausage(true);
+                                if (type.contains("HS")) {
+                                    m.setIsHam(true);
+                                    m.setIsSausage(true);
+                                } else if (type.indexOf('H') != -1) {
+                                    m.setIsHam(true);
+                                } else if (type.indexOf('S') != -1) {
+                                    m.setIsSausage(true);
                                 }
-                                else if(type.indexOf('H') != -1){
-                                   m.setIsHam(true);
-                                }else if(type.indexOf('S') != -1){
-                                   m.setIsSausage(true);
-                                }
+                                 m.addName(type);
+                                 
                                 //input price
+                                System.out.println("how many " + m.getPzType() + " do you want?");
+                                int amout = myObj.nextInt();
+                                System.out.println("how much this cost?");
                                 price = myObj.nextDouble();
                                 m.setPzPrice(price);
-                                
-                                
-                                
-                                         
+
+                                newOrder.addPizzaList(m, amout);
+
                                 break;
                             case "C":
                                 ChickenDeluxe c = new ChickenDeluxe();
+                                c.addName("ChickenDeluxe");
                                 System.out.println("select Size : S M L XL");
                                 type = myObj.nextLine();
+                                c.addName(type);
                                 c.setPzSize(type);
                                 System.out.println("select Toping : R(RoastChicken) B(BBQChicken) BR(both) N(No topping)");
                                 type = myObj.nextLine();
-                                if(type.contains("BR")){
-                                   c.setIsBbqChickenAmount(true);
-                                   c.setIsRoastedChicken(true);
+                                if (type.contains("BR")) {
+                                    c.setIsBbqChickenAmount(true);
+                                    c.setIsRoastedChicken(true);
+                                } else if (type.indexOf('R') != -1) {
+                                    c.setIsRoastedChicken(true);
+                                } else if (type.indexOf('B') != -1) {
+                                    c.setIsBbqChickenAmount(true);
                                 }
-                                else if(type.indexOf('R') != -1){
-                                   c.setIsRoastedChicken(true);
-                                }else if(type.indexOf('B') != -1){
-                                   c.setIsBbqChickenAmount(true);
-                                }
+                                c.addName(type);
                                 //input price
+                                System.out.println("how many " + c.getPzType() + " do you want?");
+                                int amout2 = myObj.nextInt();
+                                System.out.println("how much this cost?");
                                 price = myObj.nextDouble();
                                 c.setPzPrice(price);
-                                
+                                //add pizza to list
+                                newOrder.addPizzaList(c, amout2);
                                 break;
-                                
+                            case "pay":
+                               newOrder.paid();
+
                             default:
                                 break;
                         }
-                        
-                        
+
                     }
-                    
-                    
-                    
-                    
-                    
+
                     break;
                 case "C":
                     // code block
@@ -110,14 +119,14 @@ public class Main {
                     Input = "Exit";
                     System.out.println("Exit Program");
                     break;
-                    
+
             }
-            if(Input.equals("Exit")){
+            if (Input.equals("Exit")) {
                 break;
-            }else{
+            } else {
                 System.out.println("Press 'N' to new order || Press 'C' check OvenStatus || Press 'exit' to exit program ");
             }
-            
+
         }
 
     }

@@ -36,6 +36,14 @@ public class Order {
         int AmoutOrder = this.pizzaList.size();
         this.pizzaList.put((AmoutOrder + ""), pizza);
     }
+    
+     public void addPizzaList(Pizza pizza, int amount) {
+        for (int i = 0; i < amount; i++) {
+            int AmoutOrder = this.pizzaList.size();
+            this.pizzaList.put((AmoutOrder + ""), pizza); 
+        }
+        
+    }
 
     public double getPrice() {
         double cost = 0.0f;
@@ -54,6 +62,7 @@ public class Order {
         this.customer = customer;
         this.price = 0.0;
         this.isPaid = false;
+        this.pizzaList = new HashMap<String, Pizza>();
     }
 
     public void paid() {

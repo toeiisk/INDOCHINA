@@ -16,6 +16,10 @@ public class MightyMeat extends Pizza {
         this.isSausage = false;
         super.setPzType("MightyMeat");
     }
+    
+    public void addName(String name){
+        this.setPzType(this.getPzType()+' '+name);
+    }
 
     public boolean isIsHam() {
         return isHam;
