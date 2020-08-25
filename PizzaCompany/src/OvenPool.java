@@ -36,7 +36,7 @@ public class OvenPool {
     }
 
     private synchronized static PizzaOven createPooledObject(long now) {
-        if (available.isEmpty()) {
+        if (!available.isEmpty()) {
             PizzaOven po = new PizzaOven();
             push(inUse, po, now);
             return po;
