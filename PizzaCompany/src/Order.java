@@ -82,7 +82,7 @@ public class Order {
                 + "price :" + price + "\n"
                 + "====== order =========== \n");
         for (String id : this.pizzaList.keySet()) {
-            System.out.println(id + " " + this.pizzaList.get(id).getPzType() + ' ' + this.pizzaList.get(id).getPzPrice());
+            System.out.println((id+1)+" "+this.pizzaList.get(id).getPzType()+ ' '+ this.pizzaList.get(id).getPzPrice());
         }
         this.isPaid = true;
         c.payBill(price);

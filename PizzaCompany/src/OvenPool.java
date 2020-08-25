@@ -38,9 +38,15 @@ public class OvenPool {
     }
 
     private synchronized static PizzaOven createPooledObject(long now) {
-        PizzaOven po = new PizzaOven();
-        push(inUse, po, now);
-        return po;
+        if (!available.isEmpty()) {
+            PizzaOven po = new PizzaOven();
+            push(inUse, po, now);
+            return po;
+        } else {
+            System.out.println("All oven now in use please wait.");
+            return null;
+        }
+        
     }
 
     private synchronized static void push(HashMap<PizzaOven, Long> map,
