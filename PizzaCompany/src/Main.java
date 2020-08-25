@@ -29,7 +29,6 @@ public class Main {
         System.out.println("Hi " + currentCashier.getEmployee() + ", Cash is " + currentCashier.getCash() + " Bath");
 
         while (true) {
-            System.out.println("Press 'n' to new order || Press 'c' check OvenStatus || Press 'exit' to exit program ");
             String Input = myObj.nextLine();
             switch (Input) {
                 case "N":
@@ -39,7 +38,8 @@ public class Main {
                     Order newOrder = new Order(customerName);
                     System.out.println("Order no. "+newOrder.getId()+ " was created, next select pizza, finish press 'pay'");
                     String type = "";
-                    while(type.equals("pay")){
+                    double price = 0.0f;
+                    while(!type.equals("pay")){
                         System.out.println("Chicken Delux (press C) MighyMeat {press M} : ");
                         type = myObj.nextLine();
                         switch(type){
@@ -57,38 +57,41 @@ public class Main {
                                 else if(type.indexOf('H') != -1){
                                    m.setIsHam(true);
                                 }else if(type.indexOf('S') != -1){
-                                    m.setIsSausage(true);
+                                   m.setIsSausage(true);
                                 }
+                                //input price
+                                price = myObj.nextDouble();
+                                m.setPzPrice(price);
                                 
                                 
+                                
+                                         
                                 break;
                             case "C":
                                 ChickenDeluxe c = new ChickenDeluxe();
                                 System.out.println("select Size : S M L XL");
                                 type = myObj.nextLine();
                                 c.setPzSize(type);
-                                System.out.println("select Toping : R(RoastChicken) BQ(BBQChicken) B(both) N(No topping)");
+                                System.out.println("select Toping : R(RoastChicken) B(BBQChicken) BR(both) N(No topping)");
                                 type = myObj.nextLine();
-                                switch(type){
-                                    case "R":
-                                        break;
-                                    case "BQ":
-                                        break;
-                                    case "B":
-                                        break;
-                                    case "N":
-                                        break;
-                                    default:
-                                        break;
+                                if(type.contains("BR")){
+                                   c.setIsBbqChickenAmount(true);
+                                   c.setIsRoastedChicken(true);
                                 }
+                                else if(type.indexOf('R') != -1){
+                                   c.setIsRoastedChicken(true);
+                                }else if(type.indexOf('B') != -1){
+                                   c.setIsBbqChickenAmount(true);
+                                }
+                                //input price
+                                price = myObj.nextDouble();
+                                c.setPzPrice(price);
                                 
                                 break;
                                 
                             default:
                                 break;
                         }
-                        
-                        
                         
                         
                     }
@@ -111,6 +114,8 @@ public class Main {
             }
             if(Input.equals("Exit")){
                 break;
+            }else{
+                System.out.println("Press 'N' to new order || Press 'C' check OvenStatus || Press 'exit' to exit program ");
             }
             
         }

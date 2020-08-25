@@ -19,6 +19,22 @@ public class ChickenDeluxe extends Pizza {
     public ChickenDeluxe() {
         this(false, false);
     }
+
+    public boolean isIsRoastedChicken() {
+        return isRoastedChicken;
+    }
+
+    public void setIsRoastedChicken(boolean isRoastedChicken) {
+        this.isRoastedChicken = isRoastedChicken;
+    }
+
+    public boolean isIsBbqChickenAmount() {
+        return isBbqChickenAmount;
+    }
+
+    public void setIsBbqChickenAmount(boolean isBbqChickenAmount) {
+        this.isBbqChickenAmount = isBbqChickenAmount;
+    }
     
   
     
