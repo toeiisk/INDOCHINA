@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class OvenPool {
     
-    private static long expTime = 6000;//6 seconds
+    private static long expTime = 7 * 24 * 60 * 60 * 1000;//6 seconds
     public static HashMap<PizzaOven, Long> available = new HashMap<PizzaOven, Long>();
     public static HashMap<PizzaOven, Long> inUse = new HashMap<PizzaOven, Long>();
 
@@ -23,7 +23,9 @@ public class OvenPool {
             for (Map.Entry<PizzaOven, Long> entry : available.entrySet()) {
                 if (now - entry.getValue() > expTime) { //object has expired
                     popElement(available);
-                } else {
+                } 
+            
+                else {
                     PizzaOven po = popElement(available, entry.getKey());
                     push(inUse, po, now);
                     return po;

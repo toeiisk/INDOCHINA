@@ -36,13 +36,21 @@ public class Order {
         int AmoutOrder = this.pizzaList.size();
         this.pizzaList.put((AmoutOrder + ""), pizza);
     }
-    
-     public void addPizzaList(Pizza pizza, int amount) {
+
+    public void addPizzaList(Pizza pizza, int amount) {
         for (int i = 0; i < amount; i++) {
             int AmoutOrder = this.pizzaList.size();
-            this.pizzaList.put((AmoutOrder + ""), pizza); 
+            Pizza p = null;
+            if (i == 0) {
+                p = pizza;
+            } else {
+                //using clone new object
+                p = pizza.clone();
+            }
+
+            this.pizzaList.put((AmoutOrder + ""), p);
         }
-        
+
     }
 
     public double getPrice() {
@@ -69,18 +77,17 @@ public class Order {
         Cashier c = Cashier.getCashier();
         double price = this.getPrice();
         System.out.println("Slip : \n "
-                + "Slip Id : "+this.id+"\n"
-                + "Customer : "+this.customer+"\n"
-                + "price :"+price+"\n"
+                + "Slip Id : " + this.id + "\n"
+                + "Customer : " + this.customer + "\n"
+                + "price :" + price + "\n"
                 + "====== order =========== \n");
         for (String id : this.pizzaList.keySet()) {
-            System.out.println(id+" "+this.pizzaList.get(id).getPzType()+ ' '+ this.pizzaList.get(id).getPzPrice());
+            System.out.println(id + " " + this.pizzaList.get(id).getPzType() + ' ' + this.pizzaList.get(id).getPzPrice());
         }
         this.isPaid = true;
         c.payBill(price);
         System.out.println("thank you take our pizza");
-        
-       
+
     }
 
 }
