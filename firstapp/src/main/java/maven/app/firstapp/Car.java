@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,20 +80,23 @@ public class Car {
 		return new ResponseEntity<Car>(car, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResponseEntity<Car> update(@RequestBody Car car) {
-		color = car.getColor();
-		type = car.getType();
-		displacement = car.getDisplacement();
-		sunroof = car.getSunroof();
-		return new ResponseEntity<Car>(car, HttpStatus.OK);
+	@RequestMapping(value = "/update/{carId}", method = RequestMethod.POST)
+	public ResponseEntity<Car> update(@RequestBody Car car, @PathVariable("carId") int id) {
+		carlist.set(id, car);
+		return new ResponseEntity<Car>(HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/delete/{carId}", method = RequestMethod.DELETE)
+	public ResponseEntity<Car> delete(@PathVariable("carId") int id) {
+		carlist.remove(id);
+		return new ResponseEntity<Car>(HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/updateMany", method = RequestMethod.POST)
-	public ResponseEntity<List<Car>> updateMany(@RequestBody List<Car> cars) {
-		cars.stream().forEach(c -> c.setSpeed(c.getSpeed() + 10));
-		return new ResponseEntity<List<Car>>(cars, HttpStatus.OK);
+	public ResponseEntity<ArrayList<Car>> updateMany(@RequestBody ArrayList<Car> cars) {
+//		cars.stream().forEach(c -> c.setSpeed(c.getSpeed() + 10));
+		cars.stream().forEach(car -> carlist.add(car));
+		return new ResponseEntity<ArrayList<Car>>(HttpStatus.OK);
 	}
 }
 
