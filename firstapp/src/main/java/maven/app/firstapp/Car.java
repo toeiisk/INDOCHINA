@@ -1,7 +1,7 @@
 package maven.app.firstapp;
 
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,12 +21,6 @@ public class Car {
 		SpringApplication.run(Car.class, args);
 	}
 
-	@RequestMapping(value = "/get")
-	public ResponseEntity<ArrayList<Car>> get() {
-
-		return new ResponseEntity<ArrayList<Car>>(Car.carlist, HttpStatus.OK);
-	}
-	
 	static ArrayList<Car> carlist = new ArrayList<Car>();
 	private String color;
 	private String type;
@@ -74,29 +68,33 @@ public class Car {
 		this.speed = speed;
 	}
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	//get
+	@RequestMapping(value = "/car/{carId}")
+	public ResponseEntity<Car> get(@PathVariable("carId") int carId) {
+		Car instanceCar = carlist.get(carId-1);
+		return new ResponseEntity<Car>(instanceCar, HttpStatus.OK);
+	}
+	
+	//post
+	@RequestMapping(value = "/car", method = RequestMethod.POST)
 	public ResponseEntity<Car> create(@RequestBody Car car) {
 		Car.carlist.add(car);
 		return new ResponseEntity<Car>(car, HttpStatus.OK);
 	}
-
-	@RequestMapping(value = "/update/{carId}", method = RequestMethod.POST)
-	public ResponseEntity<Car> update(@RequestBody Car car, @PathVariable("carId") int id) {
-		carlist.set(id, car);
-		return new ResponseEntity<Car>(HttpStatus.OK);
+	
+	//patch
+	@RequestMapping(value = "/car/{carId}", method = RequestMethod.PATCH)
+	public ResponseEntity<ArrayList<Car>> update(@RequestBody Car car, @PathVariable("carId") int carId) {
+		carlist.set(carId-1, car);
+		return new ResponseEntity<ArrayList<Car>>(carlist, HttpStatus.OK);
 	}
+	
 
-	@RequestMapping(value = "/delete/{carId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Car> delete(@PathVariable("carId") int id) {
-		carlist.remove(id);
-		return new ResponseEntity<Car>(HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/updateMany", method = RequestMethod.POST)
-	public ResponseEntity<ArrayList<Car>> updateMany(@RequestBody ArrayList<Car> cars) {
-//		cars.stream().forEach(c -> c.setSpeed(c.getSpeed() + 10));
-		cars.stream().forEach(car -> carlist.add(car));
-		return new ResponseEntity<ArrayList<Car>>(HttpStatus.OK);
+	//delete
+	@RequestMapping(value = "/car/{carId}", method = RequestMethod.DELETE)
+	public ResponseEntity<ArrayList<Car>> delete(@PathVariable("carId") int carId) {
+		carlist.remove(carId-1);
+		return new ResponseEntity<ArrayList<Car>>(carlist, HttpStatus.OK);
 	}
 }
 
