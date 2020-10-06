@@ -9,7 +9,8 @@
     "name" : "Payment Service",
     "description" : "แสดงข้อมูลการเงิน"
   }, {
-    "name" : "Customer Service"
+    "name" : "Customer Service",
+    "description" : "ฐานข้อมูลลูกค้า"
   } ],
   "paths" : {
     "/payment/{driver_id}" : {
