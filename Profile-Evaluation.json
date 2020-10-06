@@ -12,7 +12,8 @@
     "name" : "Student Profile",
     "description" : "แสดงประวัติส่วนตัวของนักเรียน/นักศึกษา"
   }, {
-    "name" : "Evaluation"
+    "name" : "Evaluation",
+    "description" : "การประเมิน"
   } ],
   "paths" : {
     "/profile/add" : {
