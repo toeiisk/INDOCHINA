@@ -1,0 +1,261 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Register API
+  # put the contact info for your development or API team
+  contact:
+    email: you@your-company.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: student
+  description: Can view tution fees or view information for teacher
+- name: admin
+  description: Can edit tution fees
+- name: teacher
+  description: Cain view or edit infoemation
+
+paths:
+
+  /instructor:
+    get:
+      tags:
+      - teacher
+      - student
+      summary: รายชื่ออาจารย์ผูสอน
+      description: return all teacher
+      produces:
+      - application/json
+      responses:
+        200:
+          description: return successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Information'
+              
+        400:
+          description: can't find a teacher
+          
+  /instructor/{teacher_id}:
+    get:
+      tags:
+      - teacher
+      - student
+      summary: ได้รับชื่ออาขารย์ผู้สอนแต่ละคน
+      operationId: getInformationTeacherDetail
+      description: return teacher detail
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: teacher_id
+        description: pass a teacher informations 
+        required: true
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Information'
+        400:
+          description: can't find a teacher
+          
+    patch:
+      tags:
+      - teacher
+      summary: เพิ่มหรือแก้ไขข้อมูลของอาจารย์
+      operationId: addInventory
+      description: แก้ไขข้อมูลของอาจารย์
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: teacher_id
+        description: pass a teacher title string 
+        required: true
+        type: integer
+      - in: body
+        name: teacher
+        description: Teacher to add
+        schema:
+          $ref: '#/definitions/Information'
+      responses:
+        201:
+          description: item created
+          schema:
+            $ref: '#/definitions/Information'
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+  /tutionfees/faculty/{faculty_id}:
+    post:
+      tags:
+      - admin
+      summary: edit tution fees
+      operationId: addTutionFees
+      description: |
+        Adds or Edit Tution fees
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: faculty_id
+        description: pass a specific car ID
+        required: true
+        type: string
+      - in: body
+        name: tracking information
+        required: true
+        description: Tracking information to add for specific car
+        schema:
+          $ref: '#/definitions/Tutionfeesforeachfaculty'
+      responses:
+        201:
+          description: item created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: an existing item already exists
+
+  /tutionfees/management/{faculty_id}:
+    get:
+      tags:
+      - admin
+      summary: searches tution fees
+      operationId: searchmanagementtutionforfaculty
+      description: |
+        You can view tution fees
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: faculty_id
+        description: pass a specific car ID
+        required: true
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Management'
+        400:
+          description: bad input parameter
+  /tutionfees/{student_id}:
+    get:
+      tags:
+      - student
+      summary: searches tution fees
+      operationId: searchTutionStudent
+      description: |
+        You can view tution fees
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: student_id
+        description: pass a specific car ID
+        required: true
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Student'
+        400:
+          description: bad input parameter
+          
+definitions:
+  Student:
+    required: 
+      - id
+      - name
+      - idstudent
+      - faculty
+      - tutionfees
+      - status
+    properties:
+      id:
+        type: integer
+        example: 1
+      idstudent:
+        type: integer
+        example: 61070121
+      faculty:
+        type: string
+        example: 'Information Teachnology'
+      tutionfees:
+        $ref: '#/definitions/Tutionfeesforeachfaculty'
+      status:
+        type: boolean
+        example: false
+        
+  Tutionfeesforeachfaculty:
+    required:
+      - id
+      - faculty
+      - tutionfees
+    properties:
+      id:
+        type: integer
+        example: 1
+      faculty:
+        type: string
+        example: 'Infomation Technology'
+      tutionfees:
+        type: string
+        example: 32000
+  
+  Management:
+    required:
+      - id
+      - number paying
+      - total
+    properties:
+      id:
+        type: integer
+        example: 1
+      number paying:
+        type: integer
+        example: 200
+      total:
+        type: integer
+        example: 6400000
+  Information:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example: 'paramet kongjaroen'
+      educationalhistory:
+        type: string
+        example: 'KMITL'
+      address:
+        type: string
+        example: 'Thailand'
+    
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /parametprame/TuitionFees/1.0.0
+schemes:
+ - https
