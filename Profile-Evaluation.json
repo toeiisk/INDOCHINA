@@ -1,0 +1,251 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "Profile Student",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "Student Profile",
+    "description" : "แสดงประวัติส่วนตัวของนักเรียน/นักศึกษา"
+  }, {
+    "name" : "Evaluation"
+  } ],
+  "paths" : {
+    "/profile/add" : {
+      "post" : {
+        "tags" : [ "Student Profile" ],
+        "summary" : "เพิ่มนักเรียน/นักศึกษา",
+        "operationId" : "addStudent",
+        "description" : "adds new student to the course",
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Student"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't add a student"
+          }
+        }
+      }
+    },
+    "/profile/{student_id}" : {
+      "get" : {
+        "tags" : [ "Student Profile" ],
+        "summary" : "ดึงข้อมูลประวัติส่วนตัวมาแสดง",
+        "description" : "return student detail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "student_id",
+          "description" : "get student details by id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "$ref" : "#/definitions/Student"
+            }
+          },
+          "400" : {
+            "description" : "can't find a student"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "Student Profile" ],
+        "summary" : "แก้ไขข้อมูลนักเรียน/นักศึกษา",
+        "operationId" : "editDetialStudent",
+        "description" : "Edit Details Student",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "student_id",
+          "description" : "แก้ไขประวัติส่วนตัวนักเรียน  /นักศึกษา",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Student",
+          "description" : "Student to edit",
+          "schema" : {
+            "$ref" : "#/definitions/Student"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Edit success",
+            "schema" : {
+              "$ref" : "#/definitions/Student"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Student Profile" ],
+        "summary" : "ลบข้อมูลนักเรียน/นักศึกษา",
+        "description" : "delete detail student",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "student_id",
+          "description" : "ลบประวัตินักเรียน/นักศึกษา",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Student"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a student"
+          }
+        }
+      }
+    },
+    "/evaluation/{course_id}" : {
+      "post" : {
+        "tags" : [ "Evaluation" ],
+        "summary" : "เพิ่มการประเมินรายวิชา",
+        "operationId" : "addEvaluation",
+        "description" : "Adds an item to the system",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "evaluation",
+          "description" : "Evaluation to add",
+          "schema" : {
+            "$ref" : "#/definitions/Evaluation"
+          }
+        }, {
+          "in" : "path",
+          "name" : "course_id",
+          "description" : "get evaluation by course_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "Evaluation" ],
+        "summary" : "ค้นหาการประเมินรายวิชา",
+        "operationId" : "searchEvaluation",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "course_id",
+          "description" : "get evaluation by course_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching",
+            "schema" : {
+              "$ref" : "#/definitions/Evaluation"
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Student" : {
+      "type" : "object",
+      "required" : [ "id", "name", "DateofBirth", "Sex", "Phone", "Grade" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : 61070245
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Lorem ipsum"
+        },
+        "DateofBirth" : {
+          "type" : "string",
+          "format" : "date",
+          "example" : "2000-04-13"
+        },
+        "Sex" : {
+          "type" : "string",
+          "example" : "Male"
+        },
+        "Phone" : {
+          "type" : "string",
+          "example" : "086-8888-888"
+        },
+        "Grade" : {
+          "type" : "number",
+          "example" : 1
+        }
+      }
+    },
+    "Evaluation" : {
+      "type" : "object",
+      "required" : [ "id", "assessor", "teacher", "subject", "prepared" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "00001"
+        },
+        "assessor" : {
+          "type" : "string",
+          "example" : "Sukrit Leelakornkij"
+        },
+        "teacher" : {
+          "type" : "string",
+          "example" : "T.Alex"
+        },
+        "subject" : {
+          "type" : "string",
+          "example" : "English"
+        },
+        "prepared" : {
+          "type" : "integer",
+          "example" : 10
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/toeiisk/StudentAPI/1.0.0",
+  "schemes" : [ "https" ]
+}
