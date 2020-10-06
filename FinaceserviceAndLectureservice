@@ -27,7 +27,7 @@ paths:
       tags:
       - teacher
       - student
-      summary: รายชื่ออาจารย์ผูสอน
+      summary: รายชื่ออาจารย์ผู้สอน
       description: return all teacher
       produces:
       - application/json
