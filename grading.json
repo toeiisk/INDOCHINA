@@ -1,0 +1,210 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "Kmitl Register"
+  },
+  "tags" : [ {
+    "name" : "Grade"
+  } ],
+  "paths" : {
+    "/grading/transcript/{student_id}" : {
+      "get" : {
+        "tags" : [ "Grade Service" ],
+        "summary" : "ได้รับจากนักศึกษาแต่ละคน",
+        "operationId" : "getInEvaluateStudentDetail",
+        "description" : "return student_id detail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "student_id",
+          "description" : "pass a student informations",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transcript"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a student"
+          }
+        }
+      }
+    },
+    "/grading/course/{course_id}" : {
+      "post" : {
+        "tags" : [ "Grade Service" ],
+        "summary" : "ได้รับจากนักศึกษาแต่",
+        "operationId" : "getICourseDetail",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "course_id",
+          "description" : "pass a specific Student ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "Student ID",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Course"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/grading/course/{course_id}/{student_id}" : {
+      "patch" : {
+        "tags" : [ "Grade Service" ],
+        "summary" : "แก้ไขข้อมูลของนักเรียน",
+        "operationId" : "addInformation",
+        "description" : "แก้ไขข้อมูลของนักเรียน",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "course_id",
+          "description" : "pass a student title string",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "path",
+          "name" : "student_id",
+          "description" : "pass a student title string",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "Student Grade",
+          "description" : "Grade Object",
+          "schema" : {
+            "$ref" : "#/definitions/Grade"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created",
+            "schema" : {
+              "$ref" : "#/definitions/Grade"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Transcript" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "student_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : 61070060
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Denpoom Srimuang"
+        },
+        "Graduation" : {
+          "type" : "string",
+          "example" : "Student"
+        },
+        "major" : {
+          "type" : "string",
+          "example" : "Information Technology"
+        },
+        "Semester" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Subject"
+          }
+        }
+      }
+    },
+    "Course" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "student_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : 61070060
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Denpoom Srimuang"
+        },
+        "grade" : {
+          "type" : "string",
+          "example" : "B+"
+        }
+      }
+    },
+    "Subject" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "subject_id" : {
+          "type" : "string",
+          "example" : 6016325
+        },
+        "subject_name" : {
+          "type" : "string",
+          "example" : "SERVICE-ORIENTED PROGRAMMING"
+        },
+        "credit" : {
+          "type" : "integer",
+          "example" : 3
+        },
+        "grade" : {
+          "type" : "string",
+          "example" : "B+"
+        }
+      }
+    },
+    "Grade" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "student_id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : 61070060
+        },
+        "grade" : {
+          "type" : "string",
+          "example" : "B+"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/Denpoom/Evaluate/1.0.0",
+  "schemes" : [ "https" ]
+}
