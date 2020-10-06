@@ -1,0 +1,347 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "1.0.0",
+    "title" : "TAXI"
+  },
+  "tags" : [ {
+    "name" : "User",
+    "description" : "เกี่ยวกับผูใช้งาน"
+  }, {
+    "name" : "Owner",
+    "description" : "เกี่ยวกับเจ้าของอู่"
+  }, {
+    "name" : "Driver",
+    "description" : "เกี่ยวกับคนขับรถ"
+  } ],
+  "paths" : {
+    "/Drivers" : {
+      "get" : {
+        "tags" : [ "User", "Owner", "Driver" ],
+        "summary" : "ข้อมูลผู้ขับ",
+        "description" : "return all driver",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "return successfully",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Information"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      }
+    },
+    "/Drivers/add" : {
+      "post" : {
+        "tags" : [ "Owner" ],
+        "summary" : "เพิ่มข้อมูลคนขับ",
+        "operationId" : "addDriverInformation",
+        "description" : "add informationdriver",
+        "responses" : {
+          "200" : {
+            "description" : "results driver",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Information"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      }
+    },
+    "/Driver/{driver_id}" : {
+      "get" : {
+        "tags" : [ "User", "Owner", "Driver" ],
+        "summary" : "ข้อมูลคนขับแต่ละคน",
+        "description" : "return driver detail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "driver_id",
+          "description" : "pass a driver",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Information"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Owner" ],
+        "summary" : "ลบข้อมูลคนขับ",
+        "description" : "delete information driver",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "driver_id",
+          "description" : "pass a driver",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Information"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "Owner" ],
+        "summary" : "แก้ไขข้อมูลคนขับ",
+        "operationId" : "addInventory",
+        "description" : "Edit driver",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "driver_id",
+          "description" : "pass a driver title string",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "driver",
+          "description" : "Driver to edit",
+          "schema" : {
+            "$ref" : "#/definitions/Information"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created",
+            "schema" : {
+              "$ref" : "#/definitions/Information"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/Driver/feedback" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "เพิ่มผลการตอบรับ",
+        "operationId" : "addFeedbackfroDriver",
+        "description" : "add informationdriver",
+        "responses" : {
+          "200" : {
+            "description" : "results driver",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Feedback"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "User", "Owner", "Driver" ],
+        "summary" : "แสดงผลการตอบรับ",
+        "description" : "return driver detail",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Feedback"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      }
+    },
+    "/Driver/feedback/{feedback_id}" : {
+      "get" : {
+        "tags" : [ "User", "Owner", "Driver" ],
+        "summary" : "แสดงผลการตอบรับของแต่ละคน",
+        "description" : "return driver detail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feedback_id",
+          "description" : "pass a driver",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Feedback"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      }
+    },
+    "/Driver/feedback/delete/{feedback_id}" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "ลบข้อมูลผลการตอบรับ",
+        "description" : "delete information driver",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feedback_id",
+          "description" : "pass a driver",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Feedback"
+              }
+            }
+          },
+          "400" : {
+            "description" : "can't find a driver"
+          }
+        }
+      }
+    },
+    "/Driver/feedback/edit/{feedback_id}" : {
+      "patch" : {
+        "tags" : [ "User" ],
+        "summary" : "แก้ไขการให้ผลการตอบรับ",
+        "operationId" : "EditFeedback",
+        "description" : "Edit Feedback",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feedback_id",
+          "description" : "pass a driver title string",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "feedback",
+          "description" : "Edit feedback",
+          "schema" : {
+            "$ref" : "#/definitions/Feedback"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "item created",
+            "schema" : {
+              "$ref" : "#/definitions/Feedback"
+            }
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Information" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : 1
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Parame Kongjaroen"
+        },
+        "DrivingLicense" : {
+          "type" : "integer",
+          "example" : 123456
+        },
+        "Feedbackdriver" : {
+          "$ref" : "#/definitions/Feedback"
+        }
+      }
+    },
+    "Feedback" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "example" : 1
+        },
+        "headfeedback" : {
+          "type" : "string",
+          "example" : "How to good drive"
+        },
+        "detail" : {
+          "$ref" : "#/definitions/detailFeedback"
+        }
+      }
+    },
+    "detailFeedback" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "example" : 1
+        },
+        "detailfeeback" : {
+          "type" : "string",
+          "example" : "Drive Good"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https" ],
+  "basePath" : "/parametprame/InformationDriver/1.0.0"
+}
