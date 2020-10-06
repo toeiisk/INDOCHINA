@@ -14,7 +14,7 @@
   },
   "tags" : [ {
     "name" : "Information",
-    "description" : "Information or description about the car"
+    "description" : "Information or description about the cars"
   }, {
     "name" : "Maintenance",
     "description" : "Information or description about cars maintenance"
